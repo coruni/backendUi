@@ -20,19 +20,24 @@
               :value="item.mid"
             ></el-option>
           </el-select>
-          <el-input placeholder="搜索文章"></el-input>
-          <el-button style="margin-left: 10px" @click="onSubmit"
+          <el-input
+            placeholder="搜索文章"
+            v-model="search"
+            @input="!search.length ? getArticle() : ''"
+          ></el-input>
+          <el-button style="margin-left: 10px" @click="getArticle"
             >搜索</el-button
           >
         </el-row>
       </el-form-item>
     </el-form>
     <!-- 表格 -->
-    <el-table :data="article" style="width: 100%">
-      <el-table-column prop="cid" label="ID"></el-table-column>
+    <el-table :data="article" style="width: 100%" height="710">
+      <el-table-column prop="cid" label="ID" width="100"></el-table-column>
       <el-table-column prop="category[0].name" label="分类"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="authorInfo.name" label="作者"></el-table-column>
+      <el-table-column prop="created" label="创建时间"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-row type="flex">
@@ -47,6 +52,29 @@
         </template>
       </el-table-column>
     </el-table>
+    <div style="margin-top: 5px">
+      <el-pagination
+        :page-size="limit"
+        hide-on-single-page
+        background
+        layout="prev, pager, next"
+        :total="articleTotal"
+        @next-click="
+          page += 1;
+          getArticle();
+        "
+        @prev-click="page > 1 ? ((page -= 1), getArticle()) : ''"
+        @current-change="
+          page = $event;
+          getArticle();
+        "
+      >
+      </el-pagination>
+    </div>
+    <!-- 弹窗组件 -->
+    <el-dialog title="提示" :visible.sync="showEditCategory">
+      <el-form> </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -68,6 +96,9 @@ export default {
       search: "",
       page: 1,
       limit: 20,
+      articleTotal: 0,
+      // 分隔
+      showEditCategory: false,
     };
   },
   created() {
@@ -88,6 +119,9 @@ export default {
         this.searchForm.category = this.searchForm.category.concat(res.data);
       });
     },
+    con(e) {
+      console.log(e);
+    },
     getArticle() {
       let params = {
         page: this.page,
@@ -100,6 +134,7 @@ export default {
       };
       articleList(params).then((res) => {
         this.article = res.data;
+        this.articleTotal = res.total;
       });
     },
     deleteArticle(id) {
