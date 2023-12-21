@@ -72,8 +72,8 @@ export const constantRoutes = [
       },
       {
         path: 'category',
-        name: 'Category',
         component: () => import('@/views/article/category/index'),
+        name: 'Category',
         meta: { title: '分类' }
       }
     ]
