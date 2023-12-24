@@ -46,3 +46,27 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function userRecharge(params) {
+  return request({
+    url: '/user/userRecharge',
+    method: 'post',
+    params
+  })
+}
+
+export function inviteCode(params) {
+  return request({
+    url: '/user/invitationList',
+    method: 'post',
+    params
+  })
+}
+
+export function newCode(params) {
+  return request({
+    url: '/user/madeInvitation',
+    method: 'post',
+    params
+  })
+}

@@ -28,3 +28,37 @@ export function newInstall(data) {
         }
     })
 }
+
+export function getConfig(params) {
+    return request({
+        url: '/system/getApiConfig',
+        method: 'get',
+        params: {
+            ...params,
+            webkey: process.env.VUE_APP_API_KEY
+        }
+    })
+}
+
+export function save(params) {
+    return request({
+        url: '/system/apiConfigUpdate',
+        method: 'post',
+        params: {
+            params,
+            webkey: process.env.VUE_APP_API_KEY
+
+        },
+
+    })
+}
+
+export function getSystem(params) {
+    return request({
+        url: '/system/getConfig',
+        method: 'post',
+        params: {
+            webkey: process.env.VUE_APP_API_KEY
+        }
+    })
+}

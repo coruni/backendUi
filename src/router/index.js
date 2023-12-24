@@ -100,74 +100,39 @@ export const constantRoutes = [
     ]
   },
 
-
   {
-    path: '/form',
+    path: '/system',
     component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
+    redirect: '/system/index',
+    name: 'System',
     meta: {
-      title: 'Nested',
+      title: '系统设置',
       icon: 'nested'
     },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'general',
+        component: () => import('@/views/system/index'), // Parent router-view
+        name: 'General',
+        meta: { title: '常规设置' },
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        path: 'upload',
+        name: 'Upload',
+        component: () => import('@/views/system/upload'),
+        meta: { title: '上传设置' }
+      },
+      {
+        path: 'email',
+        name: 'Email',
+        component: () => import('@/views/system/email'),
+        meta: { title: '邮箱设置' }
+      },
+      {
+        path: 'pay',
+        name: 'Pay',
+        component: () => import('@/views/system/pay'),
+        meta: { title: '支付设置' }
       }
     ]
   },
