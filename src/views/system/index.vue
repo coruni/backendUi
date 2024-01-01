@@ -3,6 +3,18 @@
         <el-row type="flex" style="flex-wrap: wrap;" :gutter="20">
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
                 <el-form ref="gen" :v-model="config" label-width="80px" label-position="top">
+                    <el-form-item label="邀请码注册">
+                        <el-select v-model="config.isInvite">
+                            <el-option label="关闭" :value="0"></el-option>
+                            <el-option label="开启" :value="1"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="登录查看">
+                        <el-select v-model="config.isLogin">
+                            <el-option label="关闭" :value="0"></el-option>
+                            <el-option label="开启" :value="1"></el-option>
+                        </el-select>
+                    </el-form-item>
                     <label>经验设置</label>
                     <el-form-item label="帖子经验">
                         <el-input placeholder="帖子发布获得的经验" v-model="config.postExp"></el-input>
