@@ -6,7 +6,7 @@
           <el-table-column prop="mid" label="ID" width="60"></el-table-column>
           <el-table-column label="头像">
             <template slot-scope="scope">
-              <el-image :src="scope.row.imgurl"></el-image>
+              <el-image :src="scope.row.imgurl" style="width: 40px;height: 40px;"></el-image>
             </template>
           </el-table-column>
           <el-table-column prop="name" label="分类名"></el-table-column>
@@ -43,7 +43,7 @@
               :data="{ token: getToken() }"
               :show-file-list="false"
             >
-              <el-image :src="form.imgurl" v-if="form.imgurl"></el-image>
+              <el-image :src="form.imgurl" v-if="form.imgurl" style="width: 80px;height: 80px;"></el-image>
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -163,6 +163,7 @@ export default {
     update() {
       // 处理opt
       var params = JSON.stringify(this.form);
+      console.log(params)
       update({ params: params }).then((res) => {
         this.$message({
           message: "修改成功",

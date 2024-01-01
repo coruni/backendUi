@@ -73,3 +73,31 @@ export function setupEmail(params) {
         }
     })
 }
+
+export function initApp() {
+    return request({
+        url: '/system/initApp',
+        method: 'post',
+        params: {
+            webkey: process.env.VUE_APP_API_KEY
+        }
+    })
+}
+
+export function getApp() {
+    return request({
+        url: '/system/app',
+        method: 'post',
+        params:{}
+    })
+}
+export function updateApp(params) {
+    return request({
+        url: '/system/updateApp',
+        method: 'post',
+        params: {
+            params,
+            webkey: process.env.VUE_APP_API_KEY
+        }
+    })
+}

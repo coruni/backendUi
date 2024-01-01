@@ -129,6 +129,12 @@ export const constantRoutes = [
         meta: { title: '邮箱设置' }
       },
       {
+        path: 'app',
+        name: 'App',
+        component: () => import('@/views/system/app'),
+        meta: { title: 'APP设置' }
+      },
+      {
         path: 'pay',
         name: 'Pay',
         component: () => import('@/views/system/pay'),
