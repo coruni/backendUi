@@ -19,7 +19,6 @@ service.interceptors.request.use(
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation
-      config.headers['X-Token'] = getToken()
       if (config.method == 'post') config.params.token = getToken()
     }
     return config
@@ -47,7 +46,7 @@ service.interceptors.response.use(
     const res = response.data
     console.log(response)
     // if the custom code is not 20000, it is judged as an error.
-    if (res.code !== 1 && res.code !== 100 && res.code !== 101 && res.code !== 102) {
+    if (res.code !== 1 && res.code !== 100 && res.code !== 101 && res.code !== 102 &&res==null) {
       Message({
         message: res.msg || 'Error',
         type: 'error',

@@ -11,6 +11,14 @@
                             <el-option label="七牛云" value="qiniu"></el-option>
                         </el-select>
                     </el-form-item>
+                    <el-form-item label="类型限制">
+                        <el-select v-model="config.uploadLevel">
+                            <el-option label="允许图片" :value="0"></el-option>
+                            <el-option label="关闭上传" :value="1"></el-option>
+                            <el-option label="允许图片和媒体" :value="2"></el-option>
+                            <el-option label="允许所有文件" :value="3"></el-option>
+                        </el-select>
+                    </el-form-item>
                     <el-form-item label="SecretId" v-if="config.uploadType != 'local'">
                         <el-input v-if="config.uploadType == 'cos'" v-model="config.cosSecretKey"></el-input>
                         <el-input v-else-if="config.uploadType == 'oss'" v-model="config.aliyunAccessKeyId"></el-input>

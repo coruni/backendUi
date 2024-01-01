@@ -70,3 +70,12 @@ export function newCode(params) {
     params
   })
 }
+
+export function exportCode(params) {
+  return request({
+    url: '/user/invitationExcel',
+    method: 'post',
+    params,
+    responseType: 'arraybuffer'
+  })
+}

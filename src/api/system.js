@@ -62,3 +62,14 @@ export function getSystem(params) {
         }
     })
 }
+
+export function setupEmail(params) {
+    return request({
+        url: '/system/setupEmail',
+        method: 'post',
+        params: {
+            params,
+            webkey: process.env.VUE_APP_API_KEY
+        }
+    })
+}
