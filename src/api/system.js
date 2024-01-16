@@ -93,7 +93,7 @@ export function getApp() {
 }
 export function updateApp(params) {
     return request({
-        url: '/system/updateApp',
+        url: '/system/update',
         method: 'post',
         params: {
             params,

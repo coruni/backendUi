@@ -76,7 +76,7 @@
                             </el-col>
                             <el-col :xs="24" :sm="24" :md="24" :lg="12">
                                 <label>更新方式</label>
-                                <el-select v-model="config.issue">
+                                <el-select v-model="config.updateType">
                                     <el-option label="全量更新" :value="0"></el-option>
                                     <el-option label="热更新" :value="1"></el-option>
                                 </el-select>

@@ -34,7 +34,7 @@
     <!-- 表格 -->
     <el-table :data="article" style="width: 100%" height="710">
       <el-table-column prop="cid" label="ID" width="100"></el-table-column>
-      <el-table-column prop="category[0].name" label="分类"></el-table-column>
+      <el-table-column prop="category.name" label="分类"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="authorInfo.name" label="作者"></el-table-column>
       <el-table-column prop="created" label="创建时间"></el-table-column>
@@ -114,9 +114,9 @@ export default {
       categoryList({
         page: 1,
         limit: 100,
-        searchParams: JSON.stringify({ type: "category" }),
+        params: JSON.stringify({ type: "category" }),
       }).then((res) => {
-        this.searchForm.category = this.searchForm.category.concat(res.data);
+        this.searchForm.category = this.searchForm.category.concat(res.data.data);
       });
     },
     con(e) {
@@ -126,22 +126,22 @@ export default {
       let params = {
         page: this.page,
         limit: this.limit,
-        searchParams: JSON.stringify({
+        params: JSON.stringify({
           mid: this.searchForm.selectCategory,
         }),
         searchKey: this.search,
         order: "created desc",
       };
       articleList(params).then((res) => {
-        this.article = res.data;
+        this.article = res.data.data;
         this.articleTotal = res.total;
       });
     },
     deleteArticle(id) {
       return new Promise((resolve, reject) => {
-        articleDelete({ key: id })
+        articleDelete({id})
           .then((res) => {
-            if (res.code) {
+            if (res.code==200) {
               resolve();
             }
           })

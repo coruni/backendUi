@@ -2,17 +2,17 @@ import request from '@/utils/request'
 
 export function login(params) {
   return request({
-    url: '/user/userLogin',
+    url: '/user/login',
     method: 'post',
     params
   })
 }
 
-export function getInfo(key) {
+export function getInfo(id) {
   return request({
     url: '/user/userInfo',
     method: 'get',
-    params: { key }
+    params: { id }
   })
 }
 
@@ -26,7 +26,7 @@ export function userList(params) {
 
 export function deleteUser(params) {
   return request({
-    url: '/user/userDelete',
+    url: '/user/delete',
     method: 'post',
     params
   })
@@ -49,7 +49,7 @@ export function logout() {
 
 export function userRecharge(params) {
   return request({
-    url: '/user/userRecharge',
+    url: '/user/charge',
     method: 'post',
     params
   })

@@ -12,9 +12,10 @@
       <el-table-column label="用户名" prop="name"></el-table-column>
       <el-table-column label="昵称" prop="screenName"></el-table-column>
 
-      <el-table-column label="等级" prop="lv"></el-table-column>
-      <el-table-column label="用户组" prop="groupKey"></el-table-column>
-      <el-table-column label="VIP" prop="isvip"></el-table-column>
+      <el-table-column label="等级" prop="level"></el-table-column>
+      <el-table-column label="积分" prop="assets"></el-table-column>
+      <el-table-column label="用户组" prop="group"></el-table-column>
+      <el-table-column label="VIP" prop="vip"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="
@@ -31,7 +32,7 @@
           <el-input v-model="user.screenName"></el-input>
         </el-form-item>
         <el-form-item label="用户组">
-          <el-select v-model="user.groupKey">
+          <el-select v-model="user.group">
             <el-option value="administrator" label="管理员"></el-option>
             <el-option value="contributor" label="用户"></el-option>
             <el-option value="editor" label="编辑"></el-option>
@@ -77,7 +78,7 @@ export default {
       user: {
         uid: "",
         screenName: "",
-        groupKey: "",
+        group: "",
         email: "",
         sex: "",
         vip: "",
@@ -99,14 +100,14 @@ export default {
         searchKey: this.search,
       };
       userList(params).then((res) => {
-        if (res.code) {
-          this.userList = res.data;
+        if (res.code == 200) {
+          this.userList = res.data.data;
         }
       });
     },
     deleteUser(id) {
       return new Promise((resolve, reject) => {
-        deleteUser({ key: id }).then(() => {
+        deleteUser({ id }).then(() => {
           resolve();
         });
       });
@@ -115,9 +116,8 @@ export default {
       console.log(e);
     },
     updateUser() {
-      console.log("1");
       let params = this.user;
-      params.group = this.user.groupKey;
+      params.group = this.user.group;
       params.vip = params.vip / 1000;
       updateUser({ params: params }).then((res) => {
         this.$message({
@@ -133,7 +133,7 @@ export default {
       this.user = {
         uid: "",
         screenName: "",
-        groupKey: "",
+        group: "",
         email: "",
         sex: "",
         vip: "",
@@ -154,19 +154,17 @@ export default {
       });
     },
     charge(id) {
-      let type = 0;
+      let type = 1;
       if (this.num < 0) {
-        type = 1;
+        type = 0;
         this.num = this.num * -1
       }
-      else type = 0;
       let params = {
-        key: this.user.uid,
+        id: this.user.uid,
         num: this.num,
         type,
       };
       userRecharge(params).then((res) => {
-        console.log(res);
         this.showCharge = false,
           this.$message({
             type: "success",

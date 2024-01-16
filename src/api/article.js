@@ -18,7 +18,7 @@ export function articleInfo(params) {
 
 export function articleUpdate(params) {
     return request({
-        url: '/article/articleUpdate',
+        url: '/article/update',
         method: 'post',
         params
     })
@@ -26,7 +26,7 @@ export function articleUpdate(params) {
 
 export function articleDelete(params) {
     return request({
-        url: '/article/articleDelete',
+        url: '/article/delete',
         method: 'post',
         params
     })

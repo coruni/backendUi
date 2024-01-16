@@ -35,6 +35,17 @@
             </el-col>
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
                 <el-form label-width="80px" label-position="top" v-model="config">
+                    <el-form-item label="发布限制">
+                        <el-input v-model="config.postMax" placeholder="每日发布限制-1为不限制"></el-input>
+                    </el-form-item>
+                    <el-form-item label="内容审核">
+                        <el-select v-model="config.contentAuditlevel">
+                            <el-option label="关闭" :value="0"></el-option>
+                            <el-option label="管理员不需要审核" :value="1"></el-option>
+
+                            <el-option label="全部审核" :value="2"></el-option>
+                        </el-select>
+                    </el-form-item>
                     <label>货币设置</label>
                     <el-form-item label="VIP价格">
                         <el-input placeholder="VIP一天的价格" v-model="config.vipPrice"></el-input>
