@@ -7,7 +7,6 @@
                     <el-table-column label="图标">
                         <template slot-scope="scope">
                             <el-image :src="scope.row.image" style="width: 40px;height: 40px;"></el-image>
-
                         </template>
                     </el-table-column>
                     <el-table-column label="类型">
@@ -15,6 +14,7 @@
                             {{ scope.row.type ? '链接' : '路径' }}
                         </template>
                     </el-table-column>
+                    <el-table-column prop="name" label="名称"></el-table-column>
                     <el-table-column prop="enable" label="状态"></el-table-column>
                     <el-table-column label="操作" width="200">
                         <template slot-scope="scope">
@@ -30,8 +30,8 @@
                     <el-form-item label="图标" label-width="80px">
                         <el-upload :action="url + '/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
                             :on-success="handleAvatarSuccess" :headers="{ Authorization: token }" :show-file-list="false">
-                            <el-image :src="editorData.imgurl" v-if="editorData.imgurl"
-                                style="width: 80px;height: 80px;"></el-image>
+                            <el-image :src="editorData.image" v-if="editorData.image"
+                                style="width: 80px;height: 80px;" fit="cover"></el-image>
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
                     </el-form-item>
@@ -70,6 +70,7 @@ export default {
             editorData: {
                 id: null,
                 page: '',
+                name:'',
                 image: 'https://',
                 type: 0,
                 enable: 1,
@@ -91,7 +92,8 @@ export default {
             })
         },
         handleAvatarSuccess(res, file) {
-            this.editorData.imgurl = res.data.url;
+            this.editorData.image = res.data.url;
+            console.log(res)
         },
         beforeAvatarUpload(file) {
 
@@ -110,6 +112,7 @@ export default {
                         type: 'success',
                         message: '添加完成'
                     })
+                    this.getData()
                     this.resetData()
                 })
             }
