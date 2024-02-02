@@ -88,7 +88,7 @@ export function getApp() {
     return request({
         url: '/system/app',
         method: 'post',
-        params:{}
+        params: {}
     })
 }
 export function updateApp(params) {
@@ -98,6 +98,37 @@ export function updateApp(params) {
         params: {
             params,
             webkey: process.env.VUE_APP_API_KEY
+        }
+    })
+}
+
+export function appHomepage(params) {
+    return request({
+        url: '/system/appHomepage',
+        method: 'get',
+        params: {
+            ...params
+        }
+    })
+}
+
+export function appHomepageAdd(params){
+    return request({
+        url:'/system/appHomepageAdd',
+        method:'post',
+        params:{
+            ...params
+        }
+    })
+    
+}
+
+export function appHomepageDelete(params){
+    return request({
+        url:'/system/appHomepageDelete',
+        method:'post',
+        params:{
+            ...params
         }
     })
 }

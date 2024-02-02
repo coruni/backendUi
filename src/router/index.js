@@ -135,6 +135,12 @@ export const constantRoutes = [
         meta: { title: 'APP设置' }
       },
       {
+        path: 'appHomepage',
+        name: 'AppHomepge',
+        component: () => import('@/views/system/apphomepage'),
+        meta: { title: '应用首页' }
+      },
+      {
         path: 'pay',
         name: 'Pay',
         component: () => import('@/views/system/pay'),

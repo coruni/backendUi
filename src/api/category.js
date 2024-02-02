@@ -31,3 +31,12 @@ export function newCategory(params) {
         params
     })
 }
+
+export function action(params) {
+    return request({
+        url: '/category/action',
+        method: 'post',
+        params
+    })
+
+}

@@ -74,6 +74,15 @@
                     <el-form-item label="图片限制">
                         <el-input v-model="config.uploadPicMax" placeholder="上传图片限制大小（单位M）"></el-input>
                     </el-form-item>
+                    <el-form-item label="本地图片压缩">
+                        <el-select v-model="config.compress">
+                            <el-option label="关闭" :value="0"></el-option>
+                            <el-option label="开启" :value="1"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="压缩质量">
+                        <el-input v-model="config.quality" placeholder="压缩质量0-1"></el-input>
+                    </el-form-item>
                 </el-form>
 
             </el-col>

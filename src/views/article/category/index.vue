@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <el-row type="flex" style="flex-wrap: wrap" justify="space-between">
-      <el-col :span="11">
+    <el-row type="flex" style="flex-wrap: wrap" justify="space-between" :gutter="20">
+      <el-col :xs="24" :sm="24" :md="24" :lg="12">
         <el-table :data="category" style="width: 100%">
           <el-table-column prop="mid" label="ID" width="60"></el-table-column>
           <el-table-column label="头像">
@@ -19,15 +19,11 @@
           </el-table-column>
         </el-table>
       </el-col>
-      <el-col :span="10" style="
-          box-shadow: 0 0 2px 0 #ccc;
-          border-radius: 10px;
-          margin-left: 10px;
-        ">
+      <el-col :xs="24" :sm="24" :md="24" :lg="12">
         <el-form v-model="form" class="app-container" ref="form">
           <el-form-item label="头像">
             <el-upload :action="url + '/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
-              :on-success="handleAvatarSuccess" :data="{ token: getToken() }" :show-file-list="false">
+              :on-success="handleAvatarSuccess" :headers="{ Authorization: getToken() }" :show-file-list="false">
               <el-image :src="form.imgurl" v-if="form.imgurl" style="width: 80px;height: 80px;"></el-image>
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
@@ -52,11 +48,13 @@
             <el-row type="flex" style="align-items: center">
               <div>
                 瀑布流
-                <el-switch v-model="form.iswaterfall" :active-value="1" :inactive-value="0"></el-switch>
+                <el-switch v-model="form.iswaterfall" :active-value="1" :inactive-value="0"
+                  @change="categoryAction('waterfall', form.mid)"></el-switch>
               </div>
               <div>
                 首页推荐
-                <el-switch v-model="form.isrecommend" :active-value="1" :inactive-value="0"></el-switch>
+                <el-switch v-model="form.isrecommend" :active-value="1" :inactive-value="0"
+                  @change="categoryAction('recommend', form.mid)"></el-switch>
               </div>
             </el-row>
           </el-form-item>
@@ -74,6 +72,7 @@ import {
   update,
   deleteCategory,
   newCategory,
+  action
 } from "@/api/category";
 import { getToken } from "@/utils/auth";
 export default {
@@ -124,15 +123,11 @@ export default {
       this.form.imgurl = res.data.url;
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
       if (!isLt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
-      return isJPG && isLt2M;
+      return isLt2M;
     },
     update() {
       // 处理opt
@@ -207,7 +202,7 @@ export default {
           avatar: this.form.imgurl
         }
         newCategory(params).then((res) => {
-          if (res.code==200) {
+          if (res.code == 200) {
             this.$message({
               type: "success",
               message: "添加成功",
@@ -218,6 +213,21 @@ export default {
         });
       }
     },
+    categoryAction(type, id) {
+      let params = {
+        type,
+        id
+      }
+      action(params).then(res => {
+        if (res.code == 200) {
+          this.$message({
+            type: "success",
+            message: "设置成功",
+          });
+          this.getCategory();
+        }
+      })
+    }
   },
 };
 </script>
