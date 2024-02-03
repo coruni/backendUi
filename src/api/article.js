@@ -31,3 +31,11 @@ export function articleDelete(params) {
         params
     })
 }
+
+export function articleAction(params){
+    return request({
+        url:'/article/action',
+        method:'post',
+        params
+    })
+}
