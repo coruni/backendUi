@@ -120,7 +120,7 @@ export default {
     methods: {
         getData() {
             getApp().then(res => {
-                this.config = res.data
+                this.config = res.data.app
             })
         },
         save() {

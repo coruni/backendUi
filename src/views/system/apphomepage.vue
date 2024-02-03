@@ -30,8 +30,8 @@
                     <el-form-item label="图标" label-width="80px">
                         <el-upload :action="url + '/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
                             :on-success="handleAvatarSuccess" :headers="{ Authorization: token }" :show-file-list="false">
-                            <el-image :src="editorData.image" v-if="editorData.image"
-                                style="width: 80px;height: 80px;" fit="cover"></el-image>
+                            <el-image :src="editorData.image" v-if="editorData.image" style="width: 80px;height: 80px;"
+                                fit="cover"></el-image>
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
                     </el-form-item>
@@ -44,6 +44,10 @@
                             <el-option label="链接" :value="1"></el-option>
 
                         </el-select>
+                    </el-form-item>
+                    <el-form-item label="名称" label-width="80px">
+                        <el-input plcaeholder="建议填写4个字以内" v-model="editorData.name"></el-input>
+
                     </el-form-item>
                     <el-form-item label="状态" label-width="80px">
                         <el-select v-model="editorData.enable">
@@ -70,7 +74,7 @@ export default {
             editorData: {
                 id: null,
                 page: '',
-                name:'',
+                name: '',
                 image: 'https://',
                 type: 0,
                 enable: 1,
@@ -136,7 +140,7 @@ export default {
         },
         deletePage(id) {
             return new Promise((resolve, reject) => {
-                appHomepageDelete({id}).then(res => {
+                appHomepageDelete({ id }).then(res => {
 
                     resolve()
                 })
@@ -146,7 +150,8 @@ export default {
             this.editorData = {
                 id: null,
                 page: '',
-                image: 'https://',
+                name: '',
+                image: '',
                 type: 0,
                 enable: 1,
 
