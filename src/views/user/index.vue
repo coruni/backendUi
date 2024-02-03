@@ -7,7 +7,7 @@
       " @input="search == null || search == '' ? getUser() : ''"></el-input>
       <el-button style="margin-left: 10px">搜索</el-button>
     </el-row>
-    <el-table :data="userList">
+    <el-table :data="userList.data">
       <el-table-column label="ID" prop="uid"></el-table-column>
       <el-table-column label="用户名" prop="name"></el-table-column>
       <el-table-column label="昵称" prop="screenName"></el-table-column>
@@ -26,6 +26,8 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination background :page-count="userList.count" layout="prev, pager, next" :total="userList.total" @prev-click="page+=1;getUser()" @next-click="page-=1;getUser()" @current-change="page = $event;getUser()">
+    </el-pagination>
     <el-dialog :visible="showEditUser" title="修改用户" @close="showEditUser = false" width="80%">
       <el-form ref="user" v-model="user" label-width="80px">
         <el-form-item label="昵称">
@@ -46,8 +48,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="会员">
-          <el-date-picker v-model="user.vip * 1000" align="right" type="date" placeholder="选择日期" value-format="timestamp"
-            :default-value="new Date()" @change="con">
+          <el-date-picker v-model="user.vip" type="date" placeholder="选择日期" value-format="timestamp" @change="cone">
           </el-date-picker>
         </el-form-item>
         <el-form-item>
@@ -69,7 +70,7 @@ export default {
   data() {
     return {
       search: "",
-      limit: 20,
+      limit: 10,
       page: 1,
       order: "created desc",
       userList: [],
@@ -81,9 +82,10 @@ export default {
         group: "",
         email: "",
         sex: "",
-        vip: "",
+        vip: new Date(),
       },
       num: 0,
+      time: new Date()
     };
   },
   created() {
@@ -98,10 +100,12 @@ export default {
         page: this.page,
         limit: this.limit,
         searchKey: this.search,
+        random: 0
       };
       userList(params).then((res) => {
         if (res.code == 200) {
-          this.userList = res.data.data;
+          console.log(res)
+          this.userList = res.data;
         }
       });
     },
@@ -116,10 +120,17 @@ export default {
       console.log(e);
     },
     updateUser() {
-      let params = this.user;
-      params.group = this.user.group;
-      params.vip = params.vip / 1000;
-      updateUser({ params: params }).then((res) => {
+      let params = {
+        id: this.user.uid,
+        nickname: this.user.screenName,
+        sex: this.user.sex,
+        introduce: this.user.introduce,
+        mail: this.user.mail,
+        group: this.user.group,
+        vip: this.user.vip.toString().substring(0, 10),
+        opt: JSON.stringify(this.user.opt)
+      }
+      updateUser(params).then((res) => {
         this.$message({
           type: "success",
           message: "修改成功",
@@ -172,7 +183,11 @@ export default {
           });
         this.num = 0
       });
+
     },
+    cone(e) {
+      console.log(e)
+    }
   },
 };
 </script>

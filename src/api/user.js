@@ -34,7 +34,7 @@ export function deleteUser(params) {
 
 export function updateUser(params) {
   return request({
-    url: '/user/userEdit',
+    url: '/user/edit',
     method: 'post',
     params
   })
