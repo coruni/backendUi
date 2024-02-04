@@ -75,6 +75,12 @@ export const constantRoutes = [
         component: () => import('@/views/article/category/index'),
         name: 'Category',
         meta: { title: '分类' }
+      },
+      {
+        path: 'tag',
+        component: () => import('@/views/article/category/tag'),
+        name: 'Tag',
+        meta: { title: '标签' }
       }
     ]
   },
