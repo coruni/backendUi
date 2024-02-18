@@ -54,7 +54,7 @@ getArticle();
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="推荐" label-width="80px">
+        <el-form-item label="首页推荐" label-width="80px">
           <el-select v-model="articleData.isrecommend" @change="articleAction('recommend',articleData.cid)">
             <el-option label="关闭" :value="0">
             </el-option>
@@ -62,8 +62,16 @@ getArticle();
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="置顶" label-width="80px">
+        <el-form-item label="首页置顶" label-width="80px">
           <el-select v-model="articleData.istop" @change="articleAction('top',articleData.cid)">
+            <el-option label="关闭" :value="0">
+            </el-option>
+            <el-option label="开启" :value="1">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="圈子置顶" label-width="80px">
+          <el-select v-model="articleData.isCircleTop" @change="articleAction('circleTop',articleData.cid)">
             <el-option label="关闭" :value="0">
             </el-option>
             <el-option label="开启" :value="1">

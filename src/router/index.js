@@ -102,6 +102,39 @@ export const constantRoutes = [
         name: 'Invite',
         component: () => import('@/views/user/invite-code'),
         meta: { title: '邀请码' }
+      },
+      {
+        path: 'headpicture',
+        name: 'Headpicture',
+        component: () => import('@/views/user/headpicture'),
+        meta: { title: '头像框' }
+      }
+    ]
+  },
+
+  {
+    path: '/shop',
+    component: Layout,
+    redirect: '/shop',
+    meta: { title: '商城管理', icon: 'el-icon-user-solid' },
+    children: [
+      {
+        path: 'category',
+        name: 'Category',
+        component: () => import('@/views/shop/category'),
+        meta: { title: '分类' }
+      },
+      {
+        path: 'product',
+        name: 'Product',
+        component: () => import('@/views/shop/index'),
+        meta: { title: '商品' }
+      },
+      {
+        path: 'headpicture',
+        name: 'Headpicture',
+        component: () => import('@/views/user/headpicture'),
+        meta: { title: '头像框' }
       }
     ]
   },

@@ -57,7 +57,7 @@ export function userRecharge(params) {
 
 export function inviteCode(params) {
   return request({
-    url: '/user/invitationList',
+    url: '/user/codeList',
     method: 'post',
     params
   })
@@ -65,7 +65,7 @@ export function inviteCode(params) {
 
 export function newCode(params) {
   return request({
-    url: '/user/madeInvitation',
+    url: '/user/madeCode',
     method: 'post',
     params
   })
@@ -73,9 +73,19 @@ export function newCode(params) {
 
 export function exportCode(params) {
   return request({
-    url: '/user/invitationExcel',
+    url: '/user/codeExcel',
     method: 'post',
     params,
     responseType: 'arraybuffer'
   })
 }
+
+export function deleteCode(params) {
+  return request({
+    url: '/user/delCode',
+    method: 'post',
+    params
+  })
+}
+
+
