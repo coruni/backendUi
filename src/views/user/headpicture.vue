@@ -36,8 +36,9 @@
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
                 <el-form v-model="form" class="app-container" ref="form">
                     <el-form-item label="头像" label-width="50px">
-                        <el-upload :action="url + '/upload/full'" :on-success="handleAvatarSuccess"
-                            :headers="{ Authorization: getToken() }" :show-file-list="false">
+                        <el-upload :action="url + '/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
+                            :on-success="handleAvatarSuccess" :headers="{ Authorization: getToken() }"
+                            :show-file-list="false">
                             <el-image :src="form.link" v-if="form.link" style="width: 80px;height: 80px;"></el-image>
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
@@ -77,7 +78,7 @@ import { getToken } from "@/utils/auth";
 export default {
     data() {
         return {
-            url:null,
+            url: null,
             list: [],
             page: 1,
             limit: 10,
@@ -111,6 +112,13 @@ export default {
                     resolve()
                 })
             })
+        },
+        beforeAvatarUpload(file) {  
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isLt2M) {
+                this.$message.error("上传头像图片大小不能超过 2MB!");
+            }
+            return isLt2M;
         },
         save() {
             if (this.form.link == null || !this.form.link) return;

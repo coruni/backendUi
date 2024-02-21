@@ -27,8 +27,9 @@
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
                 <el-form v-model="form" class="app-container" ref="form">
                     <el-form-item label="头像" label-width="50px">
-                        <el-upload :action="url + '/upload/full'" :on-success="handleAvatarSuccess"
-                            :headers="{ Authorization: getToken() }" :show-file-list="false">
+                        <el-upload :action="url + '/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
+                            :on-success="handleAvatarSuccess" :headers="{ Authorization: getToken() }"
+                            :show-file-list="false">
                             <el-image :src="form.pic" v-if="form.pic" style="width: 80px;height: 80px;"></el-image>
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
@@ -59,7 +60,7 @@ export default {
             page: 1,
             limit: 10,
             form: {
-                id:0,
+                id: 0,
                 name: '',
                 pic: '',
                 intro: '',
@@ -95,6 +96,13 @@ export default {
                 this.resetForm()
             })
         },
+        beforeAvatarUpload(file) {
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isLt2M) {
+                this.$message.error("上传头像图片大小不能超过 2MB!");
+            }
+            return isLt2M;
+        },
         deleteCategory(id) {
             return new Promise((resolve, reject) => {
                 deleteCategory({ id }).then(res => {
@@ -129,7 +137,7 @@ export default {
         },
         resetForm() {
             this.form = {
-                id:0,
+                id: 0,
                 name: '',
                 pic: '',
                 intro: '',
