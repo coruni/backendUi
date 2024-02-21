@@ -113,13 +113,7 @@ export default {
                 })
             })
         },
-        beforeAvatarUpload(file) {  
-            const isLt2M = file.size / 1024 / 1024 < 2;
-            if (!isLt2M) {
-                this.$message.error("上传头像图片大小不能超过 2MB!");
-            }
-            return isLt2M;
-        },
+       
         save() {
             if (this.form.link == null || !this.form.link) return;
             save(this.form).then(res => {
@@ -153,7 +147,14 @@ export default {
             });
         },
         handleAvatarSuccess(res, file) {
-            this.form.imgurl = res.data.url;
+            this.form.link = res.data.url;
+        },
+        beforeAvatarUpload(file) {  
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isLt2M) {
+                this.$message.error("上传头像图片大小不能超过 2MB!");
+            }
+            return isLt2M;
         },
 
 

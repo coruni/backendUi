@@ -96,7 +96,10 @@ export default {
                 this.resetForm()
             })
         },
-        beforeAvatarUpload(file) {
+        handleAvatarSuccess(res, file) {
+            this.form.pic = res.data.url;
+        },
+        beforeAvatarUpload(file) {  
             const isLt2M = file.size / 1024 / 1024 < 2;
             if (!isLt2M) {
                 this.$message.error("上传头像图片大小不能超过 2MB!");
