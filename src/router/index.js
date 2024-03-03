@@ -129,12 +129,6 @@ export const constantRoutes = [
         name: 'Product',
         component: () => import('@/views/shop/index'),
         meta: { title: '商品' }
-      },
-      {
-        path: 'headpicture',
-        name: 'Headpicture',
-        component: () => import('@/views/user/headpicture'),
-        meta: { title: '头像框' }
       }
     ]
   },
@@ -162,12 +156,6 @@ export const constantRoutes = [
         meta: { title: '上传设置' }
       },
       {
-        path: 'email',
-        name: 'Email',
-        component: () => import('@/views/system/email'),
-        meta: { title: '邮箱设置' }
-      },
-      {
         path: 'app',
         name: 'App',
         component: () => import('@/views/system/app'),
@@ -184,6 +172,12 @@ export const constantRoutes = [
         name: 'Pay',
         component: () => import('@/views/system/pay'),
         meta: { title: '支付设置' }
+      },
+      {
+        path: 'login',
+        name: 'Login',
+        component: () => import('@/views/system/login'),
+        meta: { title: '登录设置' }
       }
     ]
   },
