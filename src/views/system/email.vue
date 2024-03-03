@@ -7,7 +7,7 @@
     </div>
 </template>
 <script>
-import { getConfig, save, getSystem, setupEmail } from '@/api/system'
+import { getConfig, save, setupEmail } from '@/api/system'
 export default {
     data() {
         return {
@@ -27,13 +27,6 @@ export default {
             this.getConfig()
         },
         getConfig() {
-            getSystem().then(res => {
-                let config = this.processConfigString(res.data);
-                this.config.mailHost = config['spring.mail.host']
-                this.config.mailUsername = config['spring.mail.username']
-                this.config.mailPassword = config['spring.mail.password']
-                console.log(this.config)
-            })
             getConfig().then(res => {
                 console.log(res)
                 this.isEmail = res.data.isEmail

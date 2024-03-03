@@ -53,16 +53,6 @@ export function save(params) {
     })
 }
 
-export function getSystem(params) {
-    return request({
-        url: '/system/getConfig',
-        method: 'post',
-        params: {
-            webkey: process.env.VUE_APP_API_KEY
-        }
-    })
-}
-
 export function setupEmail(params) {
     return request({
         url: '/system/setupEmail',
