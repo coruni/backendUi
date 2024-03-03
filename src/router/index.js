@@ -174,6 +174,12 @@ export const constantRoutes = [
         meta: { title: '支付设置' }
       },
       {
+        path: 'email',
+        name: 'Email',
+        component: () => import('@/views/system/email'),
+        meta: { title: '邮箱设置' }
+      },
+      {
         path: 'login',
         name: 'Login',
         component: () => import('@/views/system/login'),

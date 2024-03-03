@@ -4,18 +4,6 @@
             <el-option  label="关闭" :value="0"></el-option>
             <el-option  label="开启" :value="1"></el-option>
         </el-select>
-        <el-form label-position="top" label-width="80px">
-            <el-form-item label="邮箱主机">
-                <el-input placeholder="smtp.qq.com" v-model="config.mailHost"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱账号">
-                <el-input placeholder="exmaple@xx.com" v-model="config.mailUsername"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱密码">
-                <el-input placeholder="QQ邮箱密码是独立的" v-model="config.mailPassword"></el-input>
-            </el-form-item>
-            <el-button type="primary" @click="setupEmail()">保存</el-button>
-        </el-form>
     </div>
 </template>
 <script>
