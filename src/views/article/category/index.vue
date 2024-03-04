@@ -45,7 +45,7 @@
             <el-input v-model="form.opt.color"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-row type="flex" style="align-items: center">
+            <el-row type="flex" style="align-items: center;justify-content: space-around;">
               <div>
                 瀑布流
                 <el-switch v-model="form.iswaterfall" :active-value="1" :inactive-value="0"
@@ -60,6 +60,11 @@
                 发布权限(关闭：全员可发，开启：管理员可发)
                 <el-switch v-model="form.permission" :active-value="1" :inactive-value="0"
                   @change="categoryAction('permission', form.mid)"></el-switch>
+              </div>
+              <div>
+                会员可见
+                <el-switch v-model="form.isvip" :active-value="1" :inactive-value="0"
+                  @change="categoryAction('vip', form.mid)"></el-switch>
               </div>
             </el-row>
           </el-form-item>

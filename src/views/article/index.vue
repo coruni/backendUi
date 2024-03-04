@@ -78,6 +78,14 @@ getArticle();
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="帖子审核" label-width="80px">
+          <el-select v-model="articleData.status" @change="articleAction('publish',articleData.cid)">
+            <el-option label="待审" value="waiting">
+            </el-option>
+            <el-option label="通过" value="publish">
+            </el-option>
+          </el-select>
+        </el-form-item>
       </el-form>
     </el-dialog>
   </div>
