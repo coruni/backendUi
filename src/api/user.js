@@ -88,4 +88,30 @@ export function deleteCode(params) {
   })
 }
 
+export function paycard(params) {
+  return request({
+    url: '/pay/cardList',
+    method: 'get',
+    params
+  })
+}
 
+export function newPaycard(params) {
+  return request({
+    url: '/pay/madePaycard',
+    method: 'post',
+    params: {
+      ...params
+    }
+  })
+}
+
+export function deleteCard(params) {
+  return request({
+    url: '/pay/delete',
+    method: 'post',
+    params: {
+      ...params
+    }
+  })
+}

@@ -98,6 +98,12 @@ export const constantRoutes = [
         meta: { title: '用户' }
       },
       {
+        path: 'paycard',
+        name: 'Paycard',
+        component: () => import('@/views/user/payCard'),
+        meta: { title: '卡密' }
+      },
+      {
         path: 'invite',
         name: 'Invite',
         component: () => import('@/views/user/invite-code'),

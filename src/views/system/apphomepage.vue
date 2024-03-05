@@ -64,7 +64,7 @@
     </div>
 </template>
 <script>
-import { appHomepage, appHomepageAdd, appHomepageDelete } from '@/api/system';
+import { appHomepage, appHomepageAdd, appHomepageDelete,appHomepageUpdate } from '@/api/system';
 import { getToken } from "@/utils/auth";
 export default {
     data() {
@@ -122,7 +122,15 @@ export default {
             }
         },
         update() {
-
+            appHomepageUpdate(this.editorData).then(res => {
+                    this.$message({
+                        type: 'success',
+                        message: '修改完成'
+                    })
+                    console.log(res)
+                    this.getData()
+                    this.resetData()
+                })
         },
         async messageNotice(id) {
             this.$confirm(`是否删除该页面？`, "提示", {
@@ -141,7 +149,6 @@ export default {
         deletePage(id) {
             return new Promise((resolve, reject) => {
                 appHomepageDelete({ id }).then(res => {
-
                     resolve()
                 })
             })

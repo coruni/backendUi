@@ -20,7 +20,7 @@
     </el-table>
     <el-pagination background :page-count="codeList.count" layout="prev, pager, next" :total="codeList.total" @prev-click="page+=1;getCode()" @next-click="page-=1;getCode()" @current-change="page = $event;getCode()">
     </el-pagination>
-    <el-dialog :visible="showNew" title="新增邀请码">
+    <el-dialog :visible="showNew" title="新增邀请码" @close="showNew = false">
       <label>数量</label>
       <el-input v-model="num" placeholder="输入数量（整数）" style="margin-top: 10px; margin-bottom: 10px"></el-input>
       <el-button type="primary" @click="addNewCode()">确定</el-button>

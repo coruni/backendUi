@@ -113,6 +113,17 @@ export function appHomepageAdd(params){
     
 }
 
+export function appHomepageUpdate(params){
+    return request({
+        url:'/system/appHomepageUpdate',
+        method:'post',
+        params:{
+            ...params
+        }
+    })
+    
+}
+
 export function appHomepageDelete(params){
     return request({
         url:'/system/appHomepageDelete',
