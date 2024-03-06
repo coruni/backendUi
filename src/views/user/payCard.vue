@@ -3,11 +3,15 @@
         <el-button type="primary" @click="showNew = true">新增</el-button>
         <el-button type="primary" @click="exportCard">导出</el-button>
 
-        <el-table :data="data">
+        <el-table :data="data.data">
             <el-table-column label="id" prop="id"></el-table-column>
             <el-table-column label="卡密" prop="value"></el-table-column>
             <el-table-column label="数值" prop="price"></el-table-column>
-            <el-table-column label="类型" prop="type"></el-table-column>
+            <el-table-column label="类型" prop="type">
+                <template slot-scope="scope">
+                    <div>{{scope.row.type=='point'?'积分':'会员'}}</div>
+                </template>
+            </el-table-column>
             <el-table-column label="状态" prop="status"></el-table-column>
             <el-table-column label="使用者" prop="uid"></el-table-column>
             <el-table-column label="操作">
@@ -16,6 +20,9 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination background :page-size="20" layout="prev, pager, next" :total="data.total"
+            @prev-click="page += 1; getData()" @next-click="page -= 1; getData()" @current-change="change">
+        </el-pagination>
 
         <el-dialog title="新增卡密" :visible.sync="showNew">
             <el-form>
@@ -61,7 +68,7 @@ export default {
                 limit: 20
             }
             paycard(params).then(res => {
-                this.data = res.data.data
+                this.data = res.data
             })
         },
 
@@ -115,7 +122,11 @@ export default {
                     message: "导出成功",
                 });
             })
-        }
+        },
+        change(e) {
+            this.page = e;
+            this.getData()
+        },
     }
 }
 </script>
