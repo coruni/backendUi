@@ -15,7 +15,8 @@
       <el-table-column label="等级" prop="level"></el-table-column>
       <el-table-column label="积分" prop="assets"></el-table-column>
       <el-table-column label="用户组" prop="group"></el-table-column>
-      <el-table-column label="VIP" prop="vip"></el-table-column>
+      <el-table-column label="VIP" prop="vip">
+      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="

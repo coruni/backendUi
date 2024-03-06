@@ -1,13 +1,7 @@
 <template>
   <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      auto-complete="on"
-      label-position="left"
-    >
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on"
+      label-position="left">
       <div class="title-container">
         <h3 class="title">Login Form</h3>
       </div>
@@ -16,46 +10,23 @@
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.account"
-          placeholder="Username"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
+        <el-input ref="username" v-model="loginForm.account" placeholder="Username" name="username" type="text"
+          tabindex="1" auto-complete="on" />
       </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="Password"
-          name="password"
-          tabindex="2"
-          auto-complete="on"
-          @keyup.enter.native="handleLogin"
-        />
+        <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType"
+          placeholder="Password" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon
-            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
-          />
+          <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
         </span>
       </el-form-item>
 
-      <el-button
-        :loading="loading"
-        type="primary"
-        style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin"
-        >Login</el-button
-      >
+      <el-button :loading="loading" type="primary" style="width: 100%; margin-bottom: 30px"
+        @click.native.prevent="handleLogin">Login</el-button>
 
       <div class="tips">
         <span style="margin-right: 20px">username: admin</span>
@@ -64,34 +35,10 @@
     </el-form>
 
     <el-dialog title="安装数据库" :visible.sync="showInstall" width="80%">
-      <el-form ref="installForm" :model="installForm" label-width="80px">
-        <el-form-item prop="username" label="用户名">
-          <el-input
-            placeholder="用户名"
-            v-model="installForm.username"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="password" label="密码">
-          <el-input
-            placeholder="密码"
-            v-model="installForm.password"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="email" label="邮箱">
-          <el-input placeholder="邮箱" v-model="installForm.email"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="showInstall = false">取消</el-button>
-        <el-button
-          type="primary"
-          @click="
-            showInstall = false;
-            databaseInstall();
-          "
-          >安装</el-button
-        >
-      </span>
+      <div>
+        <el-button type="success" :loading="installing" @click="databaseInstall">安装数据库</el-button>
+
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -125,8 +72,8 @@ export default {
         email: "",
       },
       loginForm: {
-        account: "admin",
-        password: "111111",
+        account: "",
+        password: "",
       },
       loginRules: {
         account: [{ required: true, trigger: "blur" }],
@@ -135,6 +82,7 @@ export default {
         ],
       },
       loading: false,
+      installing: false,
       passwordType: "password",
       redirect: undefined,
     };
@@ -154,30 +102,37 @@ export default {
   methods: {
     initData() {
       isInstall().then((res) => {
-        console.log(res, 1);
-        if (res.code == 101) {
+        if (res.code == 201) {
           this.showInstall = true;
         }
       });
     },
     databaseInstall() {
-      if (
-        this.$refs.installForm.validate((valid) => {
-          if (valid) {
-            this.$message({
-              message: "请等待安装完成不要进行操作",
-              type: "warning",
-            });
-            install(this.installForm).then(async() => {
-              await newInstall()
-              this.$message({
-                message: "安装完成请使用账号密码登录",
-                type: "success",
-              });
-            });
-          }
-        })
-      );
+      this.installing = true
+      install(this.installForm).then((res) => {
+        console.log(res)
+        if (res.code == 200) {
+          this.$confirm(`已安装完成，请使用账号密码 admin  123456 登录`, "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning",
+          }).then(() => {
+            this.installing = false;
+          });
+        }
+
+        if(res.code ==201){
+          this.$confirm(`数据库已安装完成，请勿重复安装`, "提示", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "danger",
+          }).then(() => {
+            this.installing = false;
+            this.showInstall = false
+          });
+        }
+
+      });
     },
     showPwd() {
       if (this.passwordType === "password") {

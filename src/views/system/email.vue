@@ -1,22 +1,22 @@
 <template>
     <div class="app-container">
-        <el-select v-model="isEmail" @change="mailToggle()">
-            <el-option  label="关闭" :value="0"></el-option>
-            <el-option  label="开启" :value="1"></el-option>
-        </el-select>
+        <label style="margin-bottom: 10px;">是否开启邮箱验证</label>
+        <div>
+            <el-select v-model="isEmail" @change="mailToggle()" placeholder="是否开启邮箱验证">
+                <el-option label="关闭" :value="0"></el-option>
+                <el-option label="开启" :value="1"></el-option>
+            </el-select>
+        </div>
+
     </div>
 </template>
+
 <script>
 import { getConfig, save, setupEmail } from '@/api/system'
 export default {
     data() {
         return {
-            config: {
-                mailHost: '',
-                mailUsername: '',
-                mailPassword: '',
-            },
-            isEmail:0,
+            isEmail: 0,
         }
     },
     created() {
@@ -28,7 +28,6 @@ export default {
         },
         getConfig() {
             getConfig().then(res => {
-                console.log(res)
                 this.isEmail = res.data.isEmail
             })
         },
@@ -41,9 +40,9 @@ export default {
                 })
             })
         },
-        mailToggle(){
+        mailToggle() {
             let params = JSON.stringify({
-                isEmail:this.isEmail
+                isEmail: this.isEmail
             })
             save(params).then(res => {
                 this.$message({

@@ -2,18 +2,17 @@ import request from '@/utils/request'
 
 export function isInstall(params) {
     return request({
-        url: '/install/isInstall',
+        url: '/install/check',
         method: 'get',
         params
     })
 }
 export function install(data) {
     return request({
-        url: '/install/databaseInstall',
+        url: '/install/install',
         method: 'post',
         params: {
-            ...data,
-            webkey: process.env.VUE_APP_API_KEY
+            ...data
         }
     })
 }

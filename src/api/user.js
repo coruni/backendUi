@@ -74,7 +74,7 @@ export function newCode(params) {
 export function exportCode(params) {
   return request({
     url: '/user/codeExcel',
-    method: 'post',
+    method: 'get',
     params,
     responseType: 'arraybuffer'
   })
@@ -113,5 +113,14 @@ export function deleteCard(params) {
     params: {
       ...params
     }
+  })
+}
+
+export function exportPaycard(params) {
+  return request({
+    url: '/pay/cardExport',
+    method: 'get',
+    responseType: 'arraybuffer',
+    params
   })
 }

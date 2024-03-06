@@ -13,12 +13,14 @@
       </el-table-column>
       <el-table-column prop="created" label="创建时间" :formatter="dateFormat"></el-table-column>
       <el-table-column label="操作">
+
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="messageNotice(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination background :page-count="codeList.count" layout="prev, pager, next" :total="codeList.total" @prev-click="page+=1;getCode()" @next-click="page-=1;getCode()" @current-change="page = $event;getCode()">
+    <el-pagination background :page-count="codeList.count" layout="prev, pager, next" :total="codeList.total"
+      @prev-click="page += 1; getCode()" @next-click="page -= 1; getCode()" @current-change="page = $event; getCode()">
     </el-pagination>
     <el-dialog :visible="showNew" title="新增邀请码" @close="showNew = false">
       <label>数量</label>
@@ -27,8 +29,9 @@
     </el-dialog>
   </div>
 </template>
+
 <script>
-import { inviteCode, newCode, exportCode,deleteCode } from "@/api/user";
+import { inviteCode, newCode, exportCode, deleteCode } from "@/api/user";
 export default {
   data() {
     return {
@@ -92,17 +95,18 @@ export default {
       });
     },
     export_code() {
-      exportCode({ limit: 1000 }).then((res) => {
+      exportCode({ limit: 100000 }).then((res) => {
         console.log(res)
-        const blob = new Blob([res.data], { type: 'application/octet-stream' }); // 将二进制数据转换为 Blob 对象
-        const url = window.URL.createObjectURL(blob); // 创建可以下载的链接
+        const arrayBufferView = new Uint8Array(res); // 使用 TypedArray 处理 ArrayBuffer
+        const blob = new Blob([arrayBufferView], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', '邀请码.xls'); // 设置要下载的文件名
+        link.setAttribute('download', '邀请码.xlsx');
         document.body.appendChild(link);
-        link.click(); // 模拟点击链接进行下载
-        document.body.removeChild(link); // 下载完成后移除链接
-        window.URL.revokeObjectURL(url); // 释放 URL 对象
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
         this.$message({
           type: "success",
           message: "导出成功",

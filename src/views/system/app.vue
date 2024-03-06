@@ -91,7 +91,7 @@
     </div>
 </template>
 <script>
-import { getApp, updateApp, initApp } from '@/api/system';
+import { getApp, updateApp } from '@/api/system';
 export default {
     data() {
         return {
@@ -114,7 +114,6 @@ export default {
         }
     },
     created() {
-        initApp()
         this.getData()
     },
     methods: {

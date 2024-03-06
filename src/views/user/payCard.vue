@@ -1,7 +1,7 @@
 <template>
     <div class="app-container">
         <el-button type="primary" @click="showNew = true">新增</el-button>
-        <el-button type="primary">导出</el-button>
+        <el-button type="primary" @click="exportCard">导出</el-button>
 
         <el-table :data="data">
             <el-table-column label="id" prop="id"></el-table-column>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { newPaycard, paycard, deleteCard } from '@/api/user';
+import { newPaycard, paycard, deleteCard, exportPaycard } from '@/api/user';
 export default {
     data() {
         return {
@@ -97,6 +97,24 @@ export default {
                     resolve();
                 });
             });
+        },
+        exportCard() {
+            exportPaycard().then(res => {
+                const arrayBufferView = new Uint8Array(res); // 使用 TypedArray 处理 ArrayBuffer
+                const blob = new Blob([arrayBufferView], { type: 'application/octet-stream' });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', '卡密.xlsx');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+                this.$message({
+                    type: "success",
+                    message: "导出成功",
+                });
+            })
         }
     }
 }
