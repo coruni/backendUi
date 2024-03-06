@@ -58,8 +58,8 @@ export function userRecharge(params) {
 export function inviteCode(params) {
   return request({
     url: '/user/codeList',
-    method: 'post',
-    params
+    method: 'get',
+    ...params
   })
 }
 

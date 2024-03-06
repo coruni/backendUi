@@ -20,7 +20,7 @@
       </el-table-column>
     </el-table>
     <el-pagination background :page-count="codeList.count" layout="prev, pager, next" :total="codeList.total"
-      @prev-click="page += 1; getCode()" @next-click="page -= 1; getCode()" @current-change="page = $event; getCode()">
+      @prev-click="page += 1; getCode()" @next-click="page -= 1; getCode()" @current-change="change">
     </el-pagination>
     <el-dialog :visible="showNew" title="新增邀请码" @close="showNew = false">
       <label>数量</label>
@@ -50,14 +50,13 @@ export default {
       this.getCode();
     },
     getCode() {
+      let { page, limit } = this;
       let params = {
-        page: this.page,
-        limit: this.limit,
+        page,
         searchParams: JSON.stringify({}),
-      };
+      }
       inviteCode({ params }).then((res) => {
         this.codeList = res.data;
-        console.log(res);
       });
     },
     addNewCode() {
@@ -114,6 +113,10 @@ export default {
       }).catch((err) => {
         err
       })
+    },
+    change(e) {
+      this.page = e;
+      this.getCode()
     },
     //时间格式化
     dateFormat: function (row, column) {
