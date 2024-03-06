@@ -27,7 +27,7 @@
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
                 <el-form v-model="form" class="app-container" ref="form">
                     <el-form-item label="头像" label-width="50px">
-                        <el-upload :action="url + '/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
+                        <el-upload :action="'/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
                             :on-success="handleAvatarSuccess" :headers="{ Authorization: getToken() }"
                             :show-file-list="false">
                             <el-image :src="form.pic" v-if="form.pic" style="width: 80px;height: 80px;"></el-image>
