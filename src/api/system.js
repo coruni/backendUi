@@ -19,12 +19,8 @@ export function install(data) {
 
 export function newInstall(data) {
     return request({
-        url: 'install/newInstall',
+        url: 'install/update',
         method: 'post',
-        params: {
-            ...data,
-            webkey: process.env.VUE_APP_API_KEY
-        }
     })
 }
 

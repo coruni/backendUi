@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-row type="flex" style="flex-wrap: wrap" justify="space-between" :gutter="20">
       <el-col :xs="24" :sm="24" :md="24" :lg="12">
-        <el-table :data="category" style="width: 100%">
+        <el-table :data="category" style="width: 100%;height: 600px;" max-height="720">
           <el-table-column prop="mid" label="ID" width="60"></el-table-column>
           <el-table-column label="头像">
             <template slot-scope="scope">
@@ -12,6 +12,7 @@
           <el-table-column prop="name" label="分类名"></el-table-column>
           <el-table-column prop="description" label="介绍"></el-table-column>
           <el-table-column label="操作" width="200">
+
             <template slot-scope="scope">
               <el-button size="mini" type="primary" @click="editTap(scope.row)">编辑</el-button>
               <el-button size="mini" type="danger" @click="messageNotice(scope.row.mid)">删除</el-button>
@@ -76,6 +77,7 @@
     </el-row>
   </div>
 </template>
+
 <script>
 import {
   categoryList,

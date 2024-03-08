@@ -2,7 +2,7 @@
     <div class="app-container">
         <el-row type="flex" style="flex-wrap: wrap" justify="space-between" :gutter="20">
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
-                <el-table :data="list.data">
+                <el-table :data="list.data" style="width: 100%;height: 600px;" max-height="720">
                     <el-table-column label="ID" prop="id"></el-table-column>
                     <el-table-column label="名称" prop="name"></el-table-column>
                     <el-table-column label="头像框" prop="link">

@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-button @click="showNew = true">新增</el-button>
     <el-button @click="export_code()">导出</el-button>
-    <el-table :data="codeList.data">
+    <el-table :data="codeList.data" style="width: 100%;height: 600px;" max-height="720">
       <el-table-column prop="id" label="ID"></el-table-column>
       <el-table-column prop="code" label="邀请码"></el-table-column>
       <el-table-column prop="uid" label="创建人id"></el-table-column>

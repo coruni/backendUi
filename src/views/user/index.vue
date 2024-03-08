@@ -7,7 +7,7 @@
       " @input="search == null || search == '' ? getUser() : ''"></el-input>
       <el-button style="margin-left: 10px">搜索</el-button>
     </el-row>
-    <el-table :data="userList.data">
+    <el-table :data="userList.data" style="width: 100%;height: 600px;" max-height="720">
       <el-table-column label="ID" prop="uid"></el-table-column>
       <el-table-column label="用户名" prop="name"></el-table-column>
       <el-table-column label="昵称" prop="screenName"></el-table-column>

@@ -122,7 +122,7 @@ export const constantRoutes = [
     path: '/shop',
     component: Layout,
     redirect: '/shop',
-    meta: { title: '商城管理', icon: 'el-icon-user-solid' },
+    meta: { title: '商城管理', icon: 'el-icon-s-goods' },
     children: [
       {
         path: 'category',
@@ -135,6 +135,20 @@ export const constantRoutes = [
         name: 'Product',
         component: () => import('@/views/shop/index'),
         meta: { title: '商品' }
+      }
+    ]
+  },
+  {
+    path: '/lottery',
+    component: Layout,
+    redirect: '/lottery',
+    meta: { title: '抽奖管理', icon: 'el-icon-star-on' },
+    children: [
+      {
+        path: 'reward',
+        name: 'Reward',
+        component: () => import('@/views/lottery/reward'),
+        meta: { title: '抽奖设置' }
       }
     ]
   },
