@@ -20,14 +20,15 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="
-            showEditUser = true;
-          user = scope.row;
-          ">编辑</el-button>
+        showEditUser = true;
+      user = scope.row;
+      ">编辑</el-button>
           <el-button size="mini" type="danger" @click="messageNotice(scope.row.uid)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination background :page-count="userList.count" layout="prev, pager, next" :total="userList.total" @prev-click="page+=1;getUser()" @next-click="page-=1;getUser()" @current-change="page = $event;getUser()">
+    <el-pagination background :page-count="userList.count" layout="prev, pager, next" :total="userList.total"
+      @prev-click="page += 1; getUser()" @next-click="page -= 1; getUser()" @current-change="page = $event; getUser()">
     </el-pagination>
     <el-dialog :visible="showEditUser" title="修改用户" @close="showEditUser = false" width="80%">
       <el-form ref="user" v-model="user" label-width="80px">
@@ -59,7 +60,7 @@
       </el-form>
       <el-dialog :visible="showCharge" title="充值" @close="showCharge = false" append-to-body>
         <label>充值数量</label>
-        <el-input v-model="num" placeholder="请输入充值数量 只能是整数" style="margin-top: 10px"></el-input>
+        <el-input v-model="num" placeholder="请输入充值数量 只能是整数 输入负数是扣除" style="margin-top: 10px"></el-input>
         <el-button @click="charge()" style="margin-top: 10px;" type="primary">确定</el-button>
       </el-dialog>
     </el-dialog>
@@ -128,7 +129,7 @@ export default {
         introduce: this.user.introduce,
         mail: this.user.mail,
         group: this.user.group,
-        vip: this.user.vip.toString().substring(0, 10),
+        vip: parseInt(this.user.vip.toString().substring(0, 10), 10),
         opt: JSON.stringify(this.user.opt)
       }
       updateUser(params).then((res) => {

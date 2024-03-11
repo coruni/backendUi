@@ -2,17 +2,21 @@
     <div class="app-container">
         <el-button type="primary" @click="showNew = true">新增</el-button>
         <el-button type="primary" @click="exportCard">导出</el-button>
-
+        <el-button type="danger" @click="clear">清除无用卡密</el-button>
         <el-table :data="data.data">
             <el-table-column label="id" prop="id"></el-table-column>
             <el-table-column label="卡密" prop="value"></el-table-column>
             <el-table-column label="数值" prop="price"></el-table-column>
             <el-table-column label="类型" prop="type">
                 <template slot-scope="scope">
-                    <div>{{scope.row.type=='point'?'积分':'会员'}}</div>
+                    <div>{{ scope.row.type == 'point' ? '积分' : '会员' }}</div>
                 </template>
             </el-table-column>
-            <el-table-column label="状态" prop="status"></el-table-column>
+            <el-table-column label="状态" prop="status">
+                <template slot-scope="scope">
+                    {{ scope.row.status?'已使用':'未使用' }}
+                </template>
+            </el-table-column>
             <el-table-column label="使用者" prop="uid"></el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
@@ -46,7 +50,7 @@
 </template>
 
 <script>
-import { newPaycard, paycard, deleteCard, exportPaycard } from '@/api/user';
+import { newPaycard, paycard, deleteCard, exportPaycard, clearCard } from '@/api/user';
 export default {
     data() {
         return {
@@ -55,7 +59,8 @@ export default {
             showNew: false,
             num: 0,
             price: 0,
-            type: 'point'
+            type: 'point',
+            status: 1,
         }
     },
     created() {
@@ -127,6 +132,18 @@ export default {
             this.page = e;
             this.getData()
         },
+        clear() {
+            let params = {
+                status: this.status
+            }
+            clearCard(params).then(res => {
+                this.$message({
+                    type: "success",
+                    message: "已清除无用卡密",
+                });
+                this.getData()
+            })
+        }
     }
 }
 </script>

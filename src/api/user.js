@@ -106,6 +106,16 @@ export function newPaycard(params) {
   })
 }
 
+export function clearCard(params){
+  return request({
+    url:'/pay/clear',
+    method:'post',
+    params:{
+      ...params
+    }
+  })
+}
+
 export function deleteCard(params) {
   return request({
     url: '/pay/delete',
