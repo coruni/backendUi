@@ -37,3 +37,23 @@ export function updateRaffle(params) {
         }
     })
 }
+
+export function log(params) {
+    return request({
+        url: '/raffle/log',
+        method: 'get',
+        params
+    })
+
+}
+
+export function track(params) {
+    return request({
+        url: '/raffle/track',
+        method: 'post',
+        params: {
+            ...params
+        }
+    })
+}
+

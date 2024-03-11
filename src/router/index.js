@@ -149,6 +149,12 @@ export const constantRoutes = [
         name: 'Reward',
         component: () => import('@/views/lottery/reward'),
         meta: { title: '抽奖设置' }
+      },
+      {
+        path: 'rewardLog',
+        name: 'RewardLog',
+        component: () => import('@/views/lottery/log'),
+        meta: { title: '奖品发放' }
       }
     ]
   },

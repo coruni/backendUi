@@ -66,7 +66,7 @@
             </el-col>
         </el-row>
         <div style="margin-top: 20px;">
-            <el-button type="primary">保存</el-button>
+            <el-button type="primary" @click="updateConfig()">保存</el-button>
 
         </div>
     </div>
@@ -156,6 +156,8 @@ export default {
                     message: "修改成功",
                     type: "success",
                 });
+                this.getData()
+                this.resetData()
             })
         },
         save() {
@@ -165,6 +167,8 @@ export default {
                     message: "添加成功",
                     type: "success",
                 });
+                this.getData()
+                this.resetData()
             })
         },
         updateConfig(){
@@ -175,6 +179,17 @@ export default {
                     type: "success",
                 });
             })
+        },
+        resetData(){
+            this.edit = {
+                image: null,
+                name: null,
+                id: null,
+                type: 'point',
+                chance: 1.0,
+                quantity: 100,
+                value: 1
+            }
         }
     }
 }

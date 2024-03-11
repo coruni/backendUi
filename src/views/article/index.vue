@@ -17,7 +17,7 @@
       </el-form-item>
     </el-form>
     <!-- 表格 -->
-    <el-table :data="article" style="width: 100%;height: 600px;" max-height="720">
+    <el-table :data="article.data" style="width: 100%;height: 720px;" max-height="720">
       <el-table-column prop="cid" label="ID" width="100"></el-table-column>
       <el-table-column prop="category.name" label="分类"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
@@ -34,7 +34,7 @@
       </el-table-column>
     </el-table>
     <div style="margin-top: 5px">
-      <el-pagination :page-size="limit" background layout="prev, pager, next" :total="articleTotal"
+      <el-pagination :page-size="limit" background layout="prev, pager, next" :total="article.total"
         @next-click="page += 1; getArticle();" @prev-click="page > 1 ? ((page -= 1), getArticle()) : ''"
         @current-change="page = $event; getArticle();">
       </el-pagination>
@@ -144,8 +144,7 @@ export default {
         order: "created desc",
       };
       articleList(params).then((res) => {
-        this.article = res.data.data;
-        this.articleTotal = res.total;
+        this.article = res.data;
       });
     },
     deleteArticle(id) {

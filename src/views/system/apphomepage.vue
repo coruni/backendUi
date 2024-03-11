@@ -28,7 +28,7 @@
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
                 <el-form :model="editorData" ref="form" style="padding: 20px;">
                     <el-form-item label="图标" label-width="80px">
-                        <el-upload :action="url + '/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
+                        <el-upload :action="'/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
                             :on-success="handleAvatarSuccess" :headers="{ Authorization: token }" :show-file-list="false">
                             <el-image :src="editorData.image" v-if="editorData.image" style="width: 80px;height: 80px;"
                                 fit="cover"></el-image>
