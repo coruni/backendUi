@@ -22,12 +22,12 @@
                     <el-form-item label="SecretId" v-if="config.uploadType != 'local'">
                         <el-input v-if="config.uploadType == 'cos'" v-model="config.cosSecretKey"></el-input>
                         <el-input v-else-if="config.uploadType == 'oss'" v-model="config.aliyunAccessKeyId"></el-input>
-                        <el-input v-else-if="config.uploadType == 'qiniu'" v-model="config.qiniuSecretKey"></el-input>
+                        <el-input v-else-if="config.uploadType == 'qiniu'" v-model="config.qiniuAccessKey"></el-input>
                     </el-form-item>
                     <el-form-item label="SecretKey" v-if="config.uploadType != 'local'">
                         <el-input v-if="config.uploadType == 'cos'" v-model="config.cosAccessKey"></el-input>
                         <el-input v-else-if="config.uploadType == 'oss'" v-model="config.aliyunAccessKeySecret"></el-input>
-                        <el-input v-else-if="config.uploadType == 'qiniu'" v-model="config.qiniuAccessKey"></el-input>
+                        <el-input v-else-if="config.uploadType == 'qiniu'" v-model="config.qiniuSecretKey"></el-input>
                     </el-form-item>
                     <el-form-item label="存储桶名称" v-if="config.uploadType != 'local'">
                         <el-input v-if="config.uploadType == 'cos'" placeholder="somename"
