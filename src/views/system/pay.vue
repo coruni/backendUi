@@ -17,6 +17,12 @@
             <el-form-item label="支付宝APPID">
                 <el-input v-model="config.alipayAppId" placeholder="支付宝APPID"></el-input>
             </el-form-item>
+            <el-form-item label="支付宝私钥">
+                <el-input v-model="config.alipayPrivateKey" placeholder="支付宝私钥"></el-input>
+            </el-form-item>
+            <el-form-item label="支付宝公钥">
+                <el-input v-model="config.alipayPublicKey" placeholder="支付宝公钥"></el-input>
+            </el-form-item>
             <el-form-item label="支付宝支付通知">
                 <el-input v-model="config.alipayNotifyUrl" placeholder="支付宝支付通知"></el-input>
             </el-form-item>
