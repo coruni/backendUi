@@ -84,6 +84,17 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/swiper',
+    component: Layout,
+    redirect: '/swiper',
+    children: [{
+      path: 'swiper',
+      name: 'Swiper',
+      component: () => import('@/views/swiper/index'),
+      meta: { title: '轮播管理', icon: 'dashboard' }
+    }]
+  },
 
   {
     path: '/user',
@@ -114,7 +125,28 @@ export const constantRoutes = [
         name: 'Headpicture',
         component: () => import('@/views/user/headpicture'),
         meta: { title: '头像框' }
+      },
+      {
+        path: 'rank',
+        name: 'Rank',
+        component: () => import('@/views/user/rank'),
+        meta: { title: '头衔' }
       }
+    ]
+  },
+  {
+    path: '/exchange',
+    component: Layout,
+    redirect: '/exchange',
+
+    children: [
+      {
+        path: 'exchange',
+        name: 'Exchange',
+        component: () => import('@/views/exchange/index'),
+        meta: { title: '兑换管理',icon:'dashboard' }
+      }
+
     ]
   },
 
@@ -186,6 +218,12 @@ export const constantRoutes = [
         name: 'App',
         component: () => import('@/views/system/app'),
         meta: { title: 'APP设置' }
+      },
+      {
+        path: 'task',
+        name: 'Task',
+        component: () => import('@/views/system/task'),
+        meta: { title: '任务设置' }
       },
       {
         path: 'appHomepage',

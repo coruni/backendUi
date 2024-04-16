@@ -23,8 +23,10 @@ export function save(params) {
     })
 }
 
-export function update(params){
+export function update(params) {
     return request({
-        url:'',
+        url: '/headpicture/update',
+        method: 'post',
+        params
     })
 }

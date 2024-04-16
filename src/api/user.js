@@ -106,11 +106,11 @@ export function newPaycard(params) {
   })
 }
 
-export function clearCard(params){
+export function clearCard(params) {
   return request({
-    url:'/pay/clear',
-    method:'post',
-    params:{
+    url: '/pay/clear',
+    method: 'post',
+    params: {
       ...params
     }
   })
@@ -132,5 +132,43 @@ export function exportPaycard(params) {
     method: 'get',
     responseType: 'arraybuffer',
     params
+  })
+}
+
+export function deleteArticle(id) {
+  return request({
+    url: '/article/deleteUserArticle',
+    method: 'post',
+    params: {
+      id
+    }
+  })
+}
+
+export function deleteComment(id) {
+  return request({
+    url: '/comments/deleteUserComment',
+    method: 'post',
+    params: {
+      id
+    }
+  })
+}
+
+export function ban(params) {
+  return request({
+    url: '/user/ban',
+    method: 'post',
+    params
+  })
+}
+
+export function unban(id) {
+  return request({
+    url: '/user/unban',
+    method: 'post',
+    params: {
+      id
+    }
   })
 }

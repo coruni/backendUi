@@ -40,11 +40,8 @@ export function save(params) {
         url: '/system/apiConfigUpdate',
         method: 'post',
         params: {
-            params,
-            webkey: process.env.VUE_APP_API_KEY
-
-        },
-
+            params
+        }
     })
 }
 
@@ -54,7 +51,6 @@ export function setupEmail(params) {
         method: 'post',
         params: {
             params,
-            webkey: process.env.VUE_APP_API_KEY
         }
     })
 }
@@ -63,9 +59,6 @@ export function initApp() {
     return request({
         url: '/system/initApp',
         method: 'post',
-        params: {
-            webkey: process.env.VUE_APP_API_KEY
-        }
     })
 }
 
@@ -97,34 +90,49 @@ export function appHomepage(params) {
     })
 }
 
-export function appHomepageAdd(params){
+export function appHomepageAdd(params) {
     return request({
-        url:'/system/appHomepageAdd',
-        method:'post',
-        params:{
+        url: '/system/appHomepageAdd',
+        method: 'post',
+        params: {
             ...params
         }
     })
-    
+
 }
 
-export function appHomepageUpdate(params){
+export function appHomepageUpdate(params) {
     return request({
-        url:'/system/appHomepageUpdate',
-        method:'post',
-        params:{
+        url: '/system/appHomepageUpdate',
+        method: 'post',
+        params: {
             ...params
         }
     })
-    
+
 }
 
-export function appHomepageDelete(params){
+export function appHomepageDelete(params) {
     return request({
-        url:'/system/appHomepageDelete',
-        method:'post',
-        params:{
+        url: '/system/appHomepageDelete',
+        method: 'post',
+        params: {
             ...params
         }
+    })
+}
+
+export function taskConfig() {
+    return request({
+        url: '/system/task',
+        method: 'get'
+    })
+}
+
+export function taskSave(data) {
+    return request({
+        url: '/system/taskUpdate',
+        method: 'post',
+        data
     })
 }

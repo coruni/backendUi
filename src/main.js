@@ -41,3 +41,8 @@ new Vue({
   store,
   render: h => h(App)
 })
+
+Vue.prototype.$formatTimestamp = function (timestamp) {
+  const date = new Date(timestamp * 1000); // 注意要乘以1000，因为时间戳单位是秒而不是毫秒
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+}

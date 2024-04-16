@@ -26,7 +26,8 @@
                     </el-form-item>
                     <el-form-item label="SecretKey" v-if="config.uploadType != 'local'">
                         <el-input v-if="config.uploadType == 'cos'" v-model="config.cosSecretKey"></el-input>
-                        <el-input v-else-if="config.uploadType == 'oss'" v-model="config.aliyunAccessKeySecret"></el-input>
+                        <el-input v-else-if="config.uploadType == 'oss'"
+                            v-model="config.aliyunAccessKeySecret"></el-input>
                         <el-input v-else-if="config.uploadType == 'qiniu'" v-model="config.qiniuSecretKey"></el-input>
                     </el-form-item>
                     <el-form-item label="存储桶名称" v-if="config.uploadType != 'local'">
@@ -43,16 +44,19 @@
                         <el-input v-if="config.uploadType == 'cos'" placeholder="https://resource.example.com/"
                             v-model="config.cosPath"></el-input>
                         <el-input v-else-if="config.uploadType == 'oss'" placeholder="https://resource.example.com/"
-                            v-model="config.aliyunFilePrefix"></el-input>
+                            v-model="config.aliyunEndpoint"></el-input>
                         <el-input v-else-if="config.uploadType == 'qiniu'" placeholder="https://resource.example.com/"
                             v-model="config.qiniuDomain"></el-input>
                     </el-form-item>
+                    <el-form-item label="oss配置" v-if="config.uploadType == 'oss'">
+                        <el-input placeholder="ossURL前缀" v-model="config.aliyunUrlPrefix"></el-input>
+                    </el-form-item>
                     <el-form-item label="存储桶存放位置（放于存储桶中哪个文件夹中）"
                         v-if="config.uploadType == 'cos' || config.uploadType == 'oss'">
-                        <el-input v-if="config.uploadType == 'cos'" placeholder="TypeApi"
+                        <el-input v-if="config.uploadType == 'cos'" placeholder="app"
                             v-model="config.cosPrefix"></el-input>
-                        <el-input v-else-if="config.uploadType == 'oss'" placeholder="TypeApi"
-                            v-model="config.aliyunAucketName"></el-input>
+                        <el-input v-else-if="config.uploadType == 'oss'" placeholder="app"
+                            v-model="config.aliyunFilePrefix"></el-input>
                     </el-form-item>
                     <el-form-item label="存储桶区域" v-if="config.uploadType == 'cos' || config.uploadType == 'oss'">
                         <el-input v-if="config.uploadType == 'cos'" placeholder="ap-guangzhou"

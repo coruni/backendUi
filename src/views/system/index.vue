@@ -15,21 +15,8 @@
                             <el-option label="开启" :value="1"></el-option>
                         </el-select>
                     </el-form-item>
-                    <label>经验设置</label>
-                    <el-form-item label="帖子经验">
-                        <el-input placeholder="帖子发布获得的经验" v-model="config.postExp"></el-input>
-                    </el-form-item>
-                    <el-form-item label="评论经验">
-                        <el-input placeholder="评论时获得的经验" v-model="config.reviewExp"></el-input>
-                    </el-form-item>
-                    <el-form-item label="签到经验">
-                        <el-input placeholder="签到时获得的经验" v-model="config.clockExp"></el-input>
-                    </el-form-item>
-                    <el-form-item label="聊天最低经验">
-                        <el-input placeholder="聊天最低经验" v-model="config.chatMinExp"></el-input>
-                    </el-form-item>
-                    <el-form-item label="删除帖子扣除经验">
-                        <el-input placeholder="删除帖子扣除经验" v-model="config.deleteExp"></el-input>
+                    <el-form-item label="充值比例(1:100)">
+                        <el-input placeholder="1:100" v-model="config.scale"></el-input>
                     </el-form-item>
                 </el-form>
             </el-col>
@@ -46,6 +33,7 @@
                             <el-option label="全部审核" :value="2"></el-option>
                         </el-select>
                     </el-form-item>
+
                     <label>货币设置</label>
                     <el-form-item label="VIP价格">
                         <el-input placeholder="VIP一天的价格" v-model="config.vipPrice"></el-input>
@@ -96,6 +84,7 @@ export default {
             })
         },
         save() {
+            this.config.levelExp = null;
             let params = JSON.stringify(this.config)
             save(params).then(res => {
                 this.$message({

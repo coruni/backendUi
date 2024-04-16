@@ -8,9 +8,6 @@
             <el-form-item label="微信商户ID">
                 <el-input v-model="config.wxpayMchId" placeholder="微信商户ID"></el-input>
             </el-form-item>
-            <el-form-item label="微信支付通知">
-                <el-input v-model="config.wxpayNotifyUrl" placeholder="微信支付通知"></el-input>
-            </el-form-item>
         </el-form>
         <label>支付宝支付</label>
         <el-form label-position="top" label-width="80px">
@@ -22,9 +19,6 @@
             </el-form-item>
             <el-form-item label="支付宝公钥">
                 <el-input v-model="config.alipayPublicKey" placeholder="支付宝公钥"></el-input>
-            </el-form-item>
-            <el-form-item label="支付宝支付通知">
-                <el-input v-model="config.alipayNotifyUrl" placeholder="支付宝支付通知"></el-input>
             </el-form-item>
         </el-form>
 
@@ -39,10 +33,9 @@
             <el-form-item label="api地址">
                 <el-input v-model="config.epayUrl" placeholder="api地址"></el-input>
             </el-form-item>
-            <el-form-item label="易支付通知地址">
-                <el-input v-model="config.epayNotifyUrl" placeholder="易支付通知地址"></el-input>
-            </el-form-item>
         </el-form>
+        <label>通知地址</label>
+        <el-input v-model="config.notifyUrl" placeholder="结尾不需要/ 如https://api.xxxxx.com"></el-input>
         <el-button type="primary" @click="save()">保存</el-button>
     </div>
 </template>

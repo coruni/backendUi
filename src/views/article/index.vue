@@ -1,34 +1,46 @@
 <template>
   <div class="app-container">
-    <el-form v-model="searchForm" ref="form">
-      <el-form-item>
-        <el-row type="flex" justify="space-between">
-          <el-select v-model="searchForm.selectCategory" placeholder="请选择" no-data-text="暂无数据"
-            style="margin-right: 10px" @change="
+    <el-form v-model="searchForm" ref="form" inline size="small">
+      <el-form-item label="分类">
+        <el-select v-model="searchForm.selectCategory" placeholder="请选择分类" no-data-text="暂无数据"
+          style="margin-right: 10px" @change="
       page = 1;
     getArticle();
     ">
-            <el-option v-for="item in searchForm.category" :key="item.mid" :label="item.name"
-              :value="item.mid"></el-option>
-          </el-select>
-          <el-input placeholder="搜索文章" v-model="search" @input="!search.length ? getArticle() : ''"></el-input>
-          <el-button style="margin-left: 10px" @click="getArticle">搜索</el-button>
-        </el-row>
+          <el-option v-for="item in searchForm.category" :key="item.mid" :label="item.name"
+            :value="item.mid"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="文章标题">
+        <el-input placeholder="请输入文章标题" v-model="search" @input="!search.length ? getArticle() : ''"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button style="margin-left: 10px" @click="getArticle" type="primary" icon="el-icon-search"
+          size="mini">搜索</el-button>
       </el-form-item>
     </el-form>
     <!-- 表格 -->
-    <el-table :data="article.data" style="width: 100%;height: 720px;" max-height="720">
+    <el-table :data="article.data" max-height="720" size="mini" border style="width: 100%;border-radius: 5px"
+      :header-cell-style="{ background: '#409EFF', color: '#ffffff' }">
       <el-table-column prop="cid" label="ID" width="100"></el-table-column>
       <el-table-column prop="category.name" label="分类"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="authorInfo.name" label="作者"></el-table-column>
-      <el-table-column prop="created" label="创建时间"></el-table-column>
+      <el-table-column prop="status" label="状态">
+        <template slot-scope="status">
+          {{ status.row.status == 'publish' ? '通过' : '待审' }}
+        </template>
+      </el-table-column>
+      <el-table-column prop="created" label="创建时间">
+        <template slot-scope="created">
+          {{ $formatTimestamp(created.row.created, "yyyy-MM-dd HH:mm:ss") }}
+        </template>
+      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-row type="flex">
-            <el-button type="primary" size="mini"
-              @click="showArticleEdit = true; articleData = scope.row">编辑</el-button>
-            <el-button type="danger" size="mini" @click="messageNotice(scope.row.cid)">删除</el-button>
+            <el-button type="text" size="mini" @click="showArticleEdit = true; articleData = scope.row">编辑</el-button>
+            <el-button class="red" type="text" size="mini" @click="messageNotice(scope.row.cid)">删除</el-button>
           </el-row>
         </template>
       </el-table-column>
@@ -40,9 +52,9 @@
       </el-pagination>
     </div>
     <!-- 弹窗组件 -->
-    <el-dialog title="文章设置" :visible.sync="showArticleEdit" @close="showArticleEdit = false" width="80%">
-      <el-form :model="articleData" ref="articleForm">
-        <el-form-item label="轮播" label-width="80px">
+    <el-dialog title="文章设置" :visible.sync="showArticleEdit" @close="showArticleEdit = false" width="40%">
+      <el-form :model="articleData" ref="articleForm" label-width="80px" size="mini">
+        <el-form-item label="轮播">
           <el-select v-model="articleData.isswiper" @change="articleAction('swiper', articleData.cid)">
             <el-option label="关闭" :value="0">
             </el-option>
@@ -50,7 +62,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="首页推荐" label-width="80px">
+        <el-form-item label="首页推荐">
           <el-select v-model="articleData.isrecommend" @change="articleAction('recommend', articleData.cid)">
             <el-option label="关闭" :value="0">
             </el-option>
@@ -58,7 +70,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="首页置顶" label-width="80px">
+        <el-form-item label="首页置顶">
           <el-select v-model="articleData.istop" @change="articleAction('top', articleData.cid)">
             <el-option label="关闭" :value="0">
             </el-option>
@@ -66,7 +78,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="圈子置顶" label-width="80px">
+        <el-form-item label="圈子置顶">
           <el-select v-model="articleData.isCircleTop" @change="articleAction('circleTop', articleData.cid)">
             <el-option label="关闭" :value="0">
             </el-option>
@@ -74,7 +86,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="帖子审核" label-width="80px">
+        <el-form-item label="帖子审核">
           <el-select v-model="articleData.status" @change="articleAction('publish', articleData.cid)">
             <el-option label="待审" value="waiting">
             </el-option>
@@ -106,7 +118,7 @@ export default {
       articleData: {},
       search: "",
       page: 1,
-      limit: 20,
+      limit: 10,
       articleTotal: 0,
       // 分隔
       showArticleEdit: false,

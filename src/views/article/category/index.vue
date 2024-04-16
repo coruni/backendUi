@@ -1,80 +1,75 @@
 <template>
   <div class="app-container">
-    <el-row type="flex" style="flex-wrap: wrap" justify="space-between" :gutter="20">
-      <el-col :xs="24" :sm="24" :md="24" :lg="12">
-        <el-table :data="category" style="width: 100%;height: 600px;" max-height="720">
-          <el-table-column prop="mid" label="ID" width="60"></el-table-column>
-          <el-table-column label="头像">
-            <template slot-scope="scope">
-              <el-image :src="scope.row.imgurl" style="width: 40px;height: 40px;"></el-image>
-            </template>
-          </el-table-column>
-          <el-table-column prop="name" label="分类名"></el-table-column>
-          <el-table-column prop="description" label="介绍"></el-table-column>
-          <el-table-column label="操作" width="200">
+    <el-form inline size="small">
+      <el-button type="success" size="small" icon="el-icon-plus" style="margin-right:3em;" @click="onAdd">添加分类
+      </el-button>
+    </el-form>
+    
+    <el-table :data="category" size="mini" border style="width: 100%;border-radius: 5px;margin-top: 20px;"
+      :header-cell-style="{ background: '#409EFF', color: '#ffffff' }">
+      <el-table-column prop="mid" label="ID" width="60"></el-table-column>
+      <el-table-column label="头像">
+        <template slot-scope="scope">
+          <el-image :src="scope.row.imgurl" style="width: 40px;height: 40px;"></el-image>
+        </template>
+      </el-table-column>
+      <el-table-column prop="name" label="分类名"></el-table-column>
+      <el-table-column prop="description" label="介绍"></el-table-column>
+      <el-table-column label="操作" width="200">
+        <template slot-scope="scope">
+          <el-button class="" size="mini" type="text" @click="editTap(scope.row)">编辑</el-button>
+          <el-button class="red" size="mini" type="text" @click="messageNotice(scope.row.mid)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-            <template slot-scope="scope">
-              <el-button size="mini" type="primary" @click="editTap(scope.row)">编辑</el-button>
-              <el-button size="mini" type="danger" @click="messageNotice(scope.row.mid)">删除</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-col>
-      <el-col :xs="24" :sm="24" :md="24" :lg="12">
-        <el-form v-model="form" class="app-container" ref="form">
-          <el-form-item label="头像">
-            <el-upload :action="'/upload/full'" :beforeAvatarUpload="beforeAvatarUpload"
-              :on-success="handleAvatarSuccess" :headers="{ Authorization: getToken() }" :show-file-list="false">
-              <el-image :src="form.imgurl" v-if="form.imgurl" style="width: 80px;height: 80px;"></el-image>
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
-          <el-form-item label="名称">
-            <el-input v-model="form.name"></el-input>
-          </el-form-item>
-          <el-form-item label="介绍">
-            <el-input v-model="form.description"></el-input>
-          </el-form-item>
-          <label>颜色设置</label>
-          <el-form-item label="主题色">
-            <el-input v-model="form.opt.primary"></el-input>
-          </el-form-item>
-          <el-form-item label="下划线">
-            <el-input v-model="form.opt.underline"></el-input>
-          </el-form-item>
-          <el-form-item label="文字颜色">
-            <el-input v-model="form.opt.color"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-row type="flex" style="align-items: center;justify-content: space-around;">
-              <div>
-                瀑布流
-                <el-switch v-model="form.iswaterfall" :active-value="1" :inactive-value="0"
-                  @change="categoryAction('waterfall', form.mid)"></el-switch>
-              </div>
-              <div>
-                首页推荐
-                <el-switch v-model="form.isrecommend" :active-value="1" :inactive-value="0"
-                  @change="categoryAction('recommend', form.mid)"></el-switch>
-              </div>
-              <div>
-                发布权限(关闭：全员可发，开启：管理员可发)
-                <el-switch v-model="form.permission" :active-value="1" :inactive-value="0"
-                  @change="categoryAction('permission', form.mid)"></el-switch>
-              </div>
-              <div>
-                会员可见
-                <el-switch v-model="form.isvip" :active-value="1" :inactive-value="0"
-                  @change="categoryAction('vip', form.mid)"></el-switch>
-              </div>
-            </el-row>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="form && form.mid ? update() : newCategory()">提交</el-button>
-          </el-form-item>
-        </el-form>
-      </el-col>
-    </el-row>
+    <el-dialog title="分类管理" :visible.sync="dialogVisible" width="40%">
+      <el-form v-model="form" ref="form" size="small" label-width="80px">
+        <el-form-item label="头像">
+          <el-upload :action="'/upload/full'" :beforeAvatarUpload="beforeAvatarUpload" :on-success="handleAvatarSuccess"
+            :headers="{ Authorization: getToken() }" :show-file-list="false">
+            <el-image :src="form.imgurl" v-if="form.imgurl" style="width: 80px;height: 80px;"></el-image>
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="名称">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="介绍">
+          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 6}" v-model="form.description"></el-input>
+        </el-form-item>
+        <el-form-item label="主题色">
+          <!-- <el-color-picker v-model="form.opt.primary"></el-color-picker>{{ form.opt.primary }} -->
+          <el-input v-model="form.opt.primary"></el-input>
+        </el-form-item>
+        <el-form-item label="下划线">
+          <el-input v-model="form.opt.underline"></el-input>
+        </el-form-item>
+        <el-form-item label="文字颜色">
+          <!-- <el-color-picker v-model="form.opt.color"></el-color-picker> -->
+          <el-input v-model="form.opt.color"></el-input>
+        </el-form-item>
+        <el-form-item label="瀑布流">
+          <el-switch v-model="form.iswaterfall" :active-value="1" :inactive-value="0"
+            @change="categoryAction('waterfall', form.mid)"></el-switch>
+        </el-form-item>
+        <el-form-item label="首页推荐">
+          <el-switch v-model="form.isrecommend" :active-value="1" :inactive-value="0"
+            @change="categoryAction('recommend', form.mid)"></el-switch>
+        </el-form-item>
+        <el-form-item label="发布权限">
+          <el-switch v-model="form.permission" :active-value="1" :inactive-value="0"
+            @change="categoryAction('permission', form.mid)"></el-switch>
+          <span>(关闭：全员可发，开启：管理员可发)</span>
+        </el-form-item>
+        <el-form-item label="会员可见">
+          <el-switch v-model="form.isvip" :active-value="1" :inactive-value="0"
+            @change="categoryAction('vip', form.mid)"></el-switch>
+        </el-form-item>
+      </el-form>
+      <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="form && form.mid ? update() : newCategory()">提交</el-button>
+    </el-dialog>
   </div>
 </template>
 
@@ -90,6 +85,7 @@ import { getToken } from "@/utils/auth";
 export default {
   data() {
     return {
+      dialogVisible: false,
       form: {
         mid: 0,
         name: "",
@@ -141,6 +137,23 @@ export default {
       }
       return isLt2M;
     },
+    onAdd() {
+      this.form = {
+        mid: 0,
+        name: "",
+        description: "",
+        imgurl: "",
+        iswaterfall: 0,
+        isrecommend: 0,
+        opt: {
+          background: "",
+          color: "",
+          primary: "",
+          underline: "",
+        }
+      };
+      this.dialogVisible = true;
+    },
     update() {
       // 处理opt
       let params = {
@@ -157,6 +170,7 @@ export default {
         });
         this.resetForm()
       });
+      this.getCategory();
     },
     resetForm() {
       this.form = {
@@ -202,7 +216,8 @@ export default {
           underline: "",
         }
       }
-      this.form = data
+      this.form = { ...data };
+      this.dialogVisible = true;
     },
     newCategory() {
       if (this.form.name) {

@@ -1,17 +1,18 @@
 <template>
     <div class="app-container">
-        <el-row>
-
-            <el-col :span="6">
-                <label>筛选</label>
+        <el-form inline size="small">
+            <el-form-item label="筛选">
                 <el-select v-model="status" placeholder="状态" @change="page = 1; getData()">
                     <el-option label="已发货" value="issued"></el-option>
                     <el-option label="未发货" value="pending"></el-option>
                 </el-select>
-            </el-col>
-        </el-row>
-        <el-table :data="data.data" height="720px">
-            <el-table-column label="ID" prop="id" width="80"></el-table-column>
+            </el-form-item>
+        </el-form>
+        <label></label>
+
+        <el-table :data="data.data" max-height="720" size="mini" border style="width: 100%;border-radius: 5px"
+      :header-cell-style="{ background: '#409EFF', color: '#ffffff' }">
+            <el-table-column label="id" prop="id" width="80"></el-table-column>
             <el-table-column label="奖品" prop="name" width="180"></el-table-column>
             <el-table-column label="用户ID" prop="uid" width="80"></el-table-column>
             <el-table-column label="用户名称" prop="userInfo.screenName" width="120"></el-table-column>
@@ -27,8 +28,7 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="primary" size="mini"
-                        @click="trackInfo = scope.row; showTrack = true">发货</el-button>
+                    <el-button type="primary" size="mini" @click="trackInfo = scope.row; showTrack = true">发货</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -42,12 +42,12 @@
             </div>
             <div>
                 <label>收货人：{{ trackInfo && trackInfo.userInfo && trackInfo.userInfo.address &&
-                trackInfo.userInfo.address.contacts }}</label>
+                    trackInfo.userInfo.address.contacts }}</label>
             </div>
             <div>
 
                 <label>收货号码：{{ trackInfo && trackInfo.userInfo && trackInfo.userInfo.address &&
-                trackInfo.userInfo.address.phone }}</label>
+                    trackInfo.userInfo.address.phone }}</label>
             </div>
             <div>
                 <label>收货地址：{{ trackInfo && trackInfo.userInfo && trackInfo.userInfo.address.address }}</label>
