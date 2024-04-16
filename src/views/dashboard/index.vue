@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <a href="https://pro.aixiaoyao.cn/aff/YZHYAZNN" target="_blank">
-      <img src="http://sae6l7d57.hb-bkt.clouddn.com//guanggaos/banner.png" style="width: 100%;height: 256px;object-fit:cover ;" />
+      <img src="http://static.aixiaoyao.cn/banner.png" style="width: 100%;height: 256px;object-fit:cover ;" />
     </a>
     <el-card class="box-card">
       <div slot="header">
@@ -25,7 +25,7 @@
         </span>
       </div>
     </el-card>
-    
+
     <el-card class="box-card" style="margin-top: 20px;">
       <div slot="header">
         <span>更新数据</span>
