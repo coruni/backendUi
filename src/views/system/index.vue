@@ -18,6 +18,12 @@
                     <el-form-item label="充值比例(1:100)">
                         <el-input placeholder="1:100" v-model="config.scale"></el-input>
                     </el-form-item>
+                    <el-form-item label="每分钟最大评论次数">
+                        <el-input type="number" placeholder="每分钟最大评论次数" v-model="config.commentCount"></el-input>
+                    </el-form-item>
+                    <el-form-item label="文章发布间隔时间（秒）">
+                        <el-input type="number" placeholder="文章发布间隔时间（秒）" v-model="config.publishInterval"></el-input>
+                    </el-form-item>
                 </el-form>
             </el-col>
             <el-col :xs="24" :sm="24" :md="24" :lg="12">
